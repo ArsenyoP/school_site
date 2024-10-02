@@ -1,0 +1,106 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+<title>Вчителі</title>
+{% endblock %}
+
+
+
+{% block css %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h1 class="my-4">Предмети</h1>
+            <div class="list-group">
+                {% for i in subjects %}
+                    <a href="#" class="list-group-item">{{ i.subject_name }}</a>
+                {% endfor %}
+            </div>
+
+        </div>
+<!--        предмети-->
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+
+
+            </div>
+
+            <div class="row">
+
+
+
+            {% for i in teachers %}
+                 <div class="col-lg-4 col-md-6 mb-4">
+<div class="card h-100">
+    <a href="#">
+        <img class="card-img-top"
+             src="{{ i.image.url }}"
+             alt="">
+    </a>
+    <div class="card-body">
+        <h4 class="card-title">
+            <a>{{ i.second_name }} {{ i.name }} {{ i.by_father }}</a>
+        </h4>
+        <h5>
+            <ul>
+                {% for subject in i.subject.all %}
+                    <li>{{ subject.subject_name }}</li>
+                {% endfor %}
+            </ul>
+        </h5>
+        <p class="card-text">
+            Вік: {{i.age}} роки(-ів) <br>
+            Стаж роботи: {{i.experience}} роки(-ів) <br>
+        </p>
+        Освіта: {{i.education}}
+    </div>
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-outline-success">Більше</button>
+    </div>
+</div>
+</div>
+            {% endfor %}
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Присяжний 2024</p>
+    </div>
+    <!-- /.container -->
+</footer>
+{% endblock %}
+
+
+

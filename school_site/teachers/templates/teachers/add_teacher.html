@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  <div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+
+
+                            <div  style="margin-top: 50px;">
+
+                            {% if form.non_field_errors%}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{error}}
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Додати вчителя</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.name.id_for_label }}">Введіть ім'я вчителя</label>
+                                        {{ form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.second_name.id_for_label }}">Введіть прізвище вчителя</label>
+                                        {{ form.second_name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.by_father.id_for_label }}">Введіть по батькові вчителя</label>
+                                        {{ form.by_father }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.age.id_for_label }}">Введіть вік вчителя</label>
+                                        {{ form.age }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.experience.id_for_label }}">Введіть роки досвіду вчителя</label>
+                                        {{ form.experience }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.subject.id_for_label }}">Введіть предмет вчителя</label>
+                                        {{ form.subject }}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.education.id_for_label }}">Введіть освіту вчителя</label>
+                                        {{ form.education }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="{{ form.image.id_for_label }}">Фото вчителя</label>
+                                        {{ form.image }}
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+
+                                        <input class="btn btn-primary" type="submit" value="Додати вчителя">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

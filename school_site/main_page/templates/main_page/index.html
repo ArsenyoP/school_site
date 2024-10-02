@@ -1,8 +1,13 @@
 {% extends 'main_page/base.html' %}
 {% load static %}
 
+
+
+
+
 {% block page %}
 	<div id="page">
+
 	<nav class="fh5co-nav" role="navigation">
 		<div class="top">
 			<div class="container">
@@ -16,29 +21,34 @@
 		</div>
 		<div class="top-menu">
 			<div class="container">
+
 				<div class="row">
 					<div class="col-xs-2">
-						<div id="fh5co-logo"><a href="index.html"><i class="icon-study"></i>ТЗОШ<span>№22</span></a></div>
+						<div id="fh5co-logo"><a href="{% url 'index' %}"><i class="icon-study"></i>ТЗОШ<span>№22</span></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="courses.html">Courses</a></li>
-							<li><a href="teacher.html">Teacher</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="pricing.html">Pricing</a></li>
-							<li class="has-dropdown">
-								<a href="blog.html">Blog</a>
-								<ul class="dropdown">
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">eCommerce</a></li>
-									<li><a href="#">Branding</a></li>
-									<li><a href="#">API</a></li>
-								</ul>
-							</li>
+							<li class="active"><a href="{% url 'index' %}">Головна</a></li>
+							<li><a href="{% url 'teachers:index' %}">Вчителі</a></li>
+							{% if user.is_superuser or user.is_staff %}
+                     			<li><a href="{% url 'admin:index' %}">Адмін-панель</a></li>
+							{% endif %}
 
-							<li class="btn-cta"><a href="#"><span>Login</span></a></li>
-							<li class="btn-cta"><a href="#"><span>Create a Course</span></a></li>
+
+							{% if user.is_authenticated %}
+								<li><a href="{% url 'users:profile' %}">Профіль</a></li>
+								<li class="btn-cta"><a href="{% url 'users:logout' %}"><span>Вийти</span></a></li>
+
+							{% endif %}
+
+							{% if user.is_authenticated == False%}
+								<li class="btn-cta"><a href="{% url 'users:login' %}"><span>Вхід</span></a></li>
+							{% endif %}
+
+
+
+
+
 						</ul>
 					</div>
 				</div>
@@ -46,6 +56,7 @@
 			</div>
 		</div>
 	</nav> <!--панель навігації-->
+
 
 	<aside id="fh5co-hero">
 		<div class="flexslider">
@@ -79,111 +90,22 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3 col-sm-6 text-center animate-box">
+				{% for i in main_data %}
+					<div class="col-md-3 col-sm-6 text-center animate-box">
 					<div class="services">
-						<a href="#">
+						<a href="index.html">
 						<span class="icon">
 							<i class="icon-tick"></i>
 						</span>
 							</a>
 						<div class="desc">
-							<h3><a href="index.html">Басейн</a></h3>
-							<p>ТЗОШ №22 - одна з двох шкіл м.Тернопіль яка утримує басейн, та активно його використовує для проведення уроків фізичної культури</p>
+							<h3><a href="index.html">{{i.title}}</a></h3>
+							<p>{{i.description}}</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Народний теар</a></h3>
-							<p>На базі школи росташований народний театр "Дивосвіт" у якому займається
-							кожен 10 учень, також він є переможцем багатьох  конкурсів </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Професійні викладачі</a></h3>
-							<p>Для дітей викладають предмети найкращі вчителі Тернополя, по сучасних та інноваційних програмах</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Якісне обладнання</a></h3>
-							<p>Учні мають доступ до найякіснішого обладнання, а саме комп'ютери та прилади для вивчення фізики на явному прикладі  </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Харчування</a></h3>
-							<p>На базі школи розміщено столова для учнів та вчителів, в якій готують висококваліфіковані шеф-кухарі із найсвіжіших продукт </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Безпека</a></h3>
-							<p>Школа цілодобово охороняється представниками армії НАТО, в лице прибиральниці цьоці Галі, через яку жоден злочинець не пройде</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Дерекція</a></h3>
-							<p>Керують школою справедливі та розуміючі педагоги, які завжди готові йти на поступки своїм учням на чолі з Климчуком О.А </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center animate-box">
-					<div class="services">
-						<<a href="#">
-						<span class="icon">
-							<i class="icon-tick"></i>
-						</span>
-							</a>
-						<div class="desc">
-							<h3><a href="#">Шкільне самоврядування</a></h3>
-							<p>У школі функціонує комітет шкільного самоврядування, в якому беруть участь учні 9-11 класів, які влаштовують цікаві заходи для всієї школи</p>
-						</div>
-					</div>
-				</div>
+
+				{% endfor %}
 			</div>
 		</div>
 	</div> <!--Основні відомості про школу-->
@@ -196,22 +118,22 @@
 					<div class="row">
 						<div class="col-md-3 col-sm-6 text-center animate-box">
 							<span class="icon"><i class="icon-world"></i></span>
-							<span class="fh5co-counter js-counter" data-from="0" data-to="48" data-speed="2500" data-refresh-interval="30"></span>
+							<span class="fh5co-counter js-counter" data-from="0" data-to="{{ first_element.counting }}" data-speed="{{ first_element.counting_time }}" data-refresh-interval="30"></span>
 							<span class="fh5co-counter-label">Всього класів</span>
 						</div>
 						<div class="col-md-3 col-sm-6 text-center animate-box">
 							<span class="icon"><i class="icon-study"></i></span>
-							<span class="fh5co-counter js-counter" data-from="0" data-to="57" data-speed="3500" data-refresh-interval="50"></span>
+							<span class="fh5co-counter js-counter" data-from="0" data-to="{{ second_element.counting }}" data-speed="{{ second_element.counting_time }}" data-refresh-interval="50"></span>
 							<span class="fh5co-counter-label">Цьогорічних випускників</span>
 						</div>
 						<div class="col-md-3 col-sm-6 text-center animate-box">
 							<span class="icon"><i class="icon-bulb"></i></span>
-							<span class="fh5co-counter js-counter" data-from="0" data-to="62" data-speed="4500" data-refresh-interval="50"></span>
+							<span class="fh5co-counter js-counter" data-from="0" data-to="{{ third_element.counting }}" data-speed="{{ third_element.counting_time }}" data-refresh-interval="50"></span>
 							<span class="fh5co-counter-label">Всього вчителів</span>
 						</div>
 						<div class="col-md-3 col-sm-6 text-center animate-box">
 							<span class="icon"><i class="icon-head"></i></span>
-							<span class="fh5co-counter js-counter" data-from="0" data-to="1003" data-speed="5500" data-refresh-interval="50"></span>
+							<span class="fh5co-counter js-counter" data-from="0" data-to="{{ fours_element.counting }}" data-speed="{{fours_element.counting_time}}" data-refresh-interval="50"></span>
 							<span class="fh5co-counter-label">Всього учнів</span>
 						</div>
 					</div>
@@ -229,60 +151,24 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 animate-box">
-					<div class="course">
-						<a href="#" class="course-img" style="background-image: url(images/project-1.jpg);">
-						</a>
-						<div class="desc">
-							<h3><a href="#">Театр 'Дивосвіт'</a></h3>
-							<p>Театр є однією з головних гордостей школи, у ньому займаються близько ста учнів,  педагоги використовують індивідуальний підхід. </p>
-							<span><a href="#" class="btn btn-primary btn-sm btn-course">Детальніше</a></span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="course">
-						<a href="#" class="course-img" style="background-image: url(images/project-2.jpg);">
-						</a>
-						<div class="desc">
-							<h3><a href="#">Плавання</a></h3>
-							<p>У шкільному басейні регулярно провидиться спортивно-оздоровчий гурток спортивного плавання для усіх бажаючих дітей не тільки школи, а всьго міста</p>
-							<span><a href="#" class="btn btn-primary btn-sm btn-course">Детальніше</a></span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="course">
-						<a href="#" class="course-img" style="background-image: url(images/project-4.jpg);">
-						</a>
-						<div class="desc">
-							<h3><a href="#">Ігри з м'ячем</a></h3>
-							<p> У спортивному залі, а також на стадіоні функціонують секції ігор з м'ячем, таких як футбол, баскетбол та волейбол</p>
-							<span><a href="#" class="btn btn-primary btn-sm btn-course">Детальніше</a></span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="course">
-						<a href="#" class="course-img" style="background-image: url(images/project-3.jpg);">
-						</a>
-						<div class="desc">
-							<h3><a href="#">Греко-риська боротьба</a></h3>
-							<p>У шкільному спортивному залі проводяться заняття греко-римської боротьби, для учнів 4-6, а також 7-9 класів</p>
-							<span><a href="#" class="btn btn-primary btn-sm btn-course">Детальніше</a></span>
-						</div>
-					</div>
-				</div>
+				{% for i in sections %}
+    <div class="col-md-6 animate-box">
+        <div class="course">
+            <a href="#" class="course-img" style="background-image: url('{{ i.image.url }}');">
+            </a>
+            <div class="desc">
+                <h3><a href="#">{{ i.title }}</a></h3>
+                <p>{{ i.description }}</p>
+                <span><a href="#" class="btn btn-primary btn-sm btn-course">Детальніше</a></span>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
 
 			</div>
 		</div>
 	</div> <!--Дані про гуртки-->
-
-
-
-
-
-
 
 
 
@@ -291,84 +177,19 @@
 			<h2><span>Галерея</span></h2>
 		</div>
 		<div class="row">
-			<div class="col-md-3 col-padded">
-				<a href="#" class="gallery" style="background-image: url(images/project-5.jpg);"></a>
-			</div>
-			<div class="col-md-3 col-padded">
-				<a href="#" class="gallery" style="background-image: url(images/project-2.jpg);"></a>
-			</div>
-			<div class="col-md-3 col-padded">
-				<a href="#" class="gallery" style="background-image: url(images/project-3.jpg);"></a>
-			</div>
-			<div class="col-md-3 col-padded">
-				<a href="#" class="gallery" style="background-image: url(images/project-4.jpg);"></a>
-			</div>
+			{% for i in gallery %}
+				<div class="col-md-3 col-padded">
+					<a href="#" class="gallery" style="background-image: url('{{ i.image.url }}');"></a>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
-
-	<footer id="fh5co-footer" role="contentinfo" style="background-image: url(images/img_bg_4.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row row-pb-md">
-				<div class="col-md-3 fh5co-widget">
-					<h3>About Education</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
-					<h3>Learning</h3>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Course</a></li>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
-					<h3>Learn &amp; Grow</h3>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
-					<h3>Engage us</h3>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Marketing</a></li>
-						<li><a href="#">Visual Assistant</a></li>
-						<li><a href="#">System Analysis</a></li>
-						<li><a href="#">Advertise</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
-					<h3>Legal</h3>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Developers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a> &amp; <a href="https://www.pexels.com/" target="_blank">Pexels</a></small>
-					</p>
-				</div>
-			</div>
-
-		</div>
-	</footer>
 	</div>
+
+
+
+
+
+
 {% endblock %}
 
