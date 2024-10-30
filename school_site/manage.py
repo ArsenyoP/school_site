@@ -20,7 +20,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     # Додаємо порт до аргументів командного рядка
-    execute_from_command_line(sys.argv + ['runserver', f'0.0.0.0:{port}'])
+    sys.argv.append(f'0.0.0.0:{port}')
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
