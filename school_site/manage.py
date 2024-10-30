@@ -7,6 +7,10 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'school_site.settings')
+
+    # Отримання порту з змінних середовища
+    port = int(os.environ.get("PORT", 8000))  # 8000 - порт за замовчуванням
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -15,7 +19,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    # Додаємо порт до аргументів командного рядка
+    execute_from_command_line(sys.argv + ['runserver', f'0.0.0.0:{port}'])
 
 
 if __name__ == '__main__':
